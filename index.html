@@ -57,10 +57,9 @@
     /* Urgent Banner */
     .urgent-banner {
       background: var(--urgent); color: white;
-      text-align: center; padding: 10px 16px;
-      font-size: 13px; font-weight: 600;
-      position: fixed; top: 52px; left: 0; right: 0; z-index: 99;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
+      text-align: center; padding: 9px 16px;
+      font-size: 13px; font-weight: 600; line-height: 1.5;
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 101;
     }
     .urgent-banner a { color: white; text-decoration: underline; }
 
@@ -215,22 +214,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 16px; padding: 26px;
     }
-    .profile-avatar {
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(255,255,255,0.25);
-      margin-bottom: 16px;
-      flex-shrink: 0;
-    }
-    .profile-avatar img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .profile-avatar img.yu {
-      object-position: center 65%;
-    }
-    .profile-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 4px; }
+.profile-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 4px; }
     .profile-role { font-size: 11px; color: #7ec8f5; margin-bottom: 14px; font-weight: 600; letter-spacing: 0.05em; }
     .profile-bio { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.85; }
     .profile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
@@ -479,7 +463,6 @@
     <div class="divider center" style="background:#7ec8f5;"></div>
     <div class="profile-cards">
       <div class="profile-card">
-        <div class="profile-avatar"><img src="aiju.png" alt="アイジュ"></div>
         <div class="profile-name">アイジュ</div>
         <div class="profile-role">ハノイ在住・腎臓内科専門医・40代</div>
         <p class="profile-bio">
@@ -494,7 +477,6 @@
         </div>
       </div>
       <div class="profile-card">
-        <div class="profile-avatar"><img src="yu.png" alt="ゆー" class="yu"></div>
         <div class="profile-name">ゆー</div>
         <div class="profile-role">愛知・消化器内科・産業医・パーソナルドクター</div>
         <p class="profile-bio">
