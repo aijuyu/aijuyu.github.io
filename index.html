@@ -54,21 +54,12 @@
       .nav-links { display: none; }
     }
 
-    /* Urgent Banner */
-    .urgent-banner {
-      background: var(--urgent); color: white;
-      text-align: center; padding: 9px 16px;
-      font-size: 13px; font-weight: 600; line-height: 1.5;
-      position: fixed; top: 52px; left: 0; right: 0; z-index: 101;
-    }
-    .urgent-banner a { color: white; text-decoration: underline; }
-
     /* Hero */
     .hero {
       background: var(--gradient);
       min-height: 100vh;
       display: flex; align-items: center;
-      padding: 140px 24px 80px;
+      padding: 100px 24px 80px;
       position: relative; overflow: hidden;
     }
     .hero::before {
@@ -338,12 +329,6 @@
 </head>
 <body>
 
-<!-- Urgent Banner -->
-<div class="urgent-banner">
-  メンバーシップは6月1日より新体制に移行予定。<strong>5月中の入会が最もお得です。</strong>
-  <a href="#membership">詳細を見る</a>
-</div>
-
 <!-- Nav -->
 <nav>
   <span class="nav-logo">医局の外で会いましょう</span>
@@ -352,7 +337,7 @@
     <li><a href="#profiles">パーソナリティ</a></li>
     <li><a href="#membership">メンバーシップ</a></li>
   </ul>
-  <a href="https://note.com/aiju_yu/membership" class="nav-cta" target="_blank">5月中に入会する</a>
+  <a href="https://note.com/aiju_yu/membership" class="nav-cta" target="_blank">入会する</a>
 </nav>
 
 <!-- Hero -->
@@ -551,23 +536,48 @@
       <div class="divider center"></div>
     </div>
 
-    <div class="plan-change-notice">
-      <strong>6月1日よりメンバーシップが新体制に移行します</strong>
-      現在の月額1,000円プランは5月31日で終了予定。<strong>5月中の入会が最もお得です。</strong>
-    </div>
+    <div class="plans-grid">
 
-    <div class="membership-card-single">
-      <span class="plan-badge blue">現行プラン（〜5月31日）</span>
-      <div class="plan-name">医局じゃない医局</div>
-      <div class="plan-price">¥1,000<span>/月</span></div>
-      <ul class="plan-features">
-        <li><span class="check">✓</span> メンバー限定の音源・動画（毎月配信）</li>
-        <li><span class="check">✓</span> 表では話せないキャリア・お金のリアルトーク</li>
-        <li><span class="check">✓</span> 2人へのQ&A・お便り受付</li>
-        <li><span class="check">✓</span> メンバー同士の交流・コミュニティ参加</li>
-        <li><span class="check">✓</span> 過去アーカイブへのアクセス</li>
-      </ul>
-      <a href="https://note.com/aiju_yu/membership" class="plan-cta primary" target="_blank">月1,000円でメンバーになる</a>
+      <!-- プラン1 -->
+      <div class="plan-card">
+        <span class="plan-badge blue">スタンダード</span>
+        <div class="plan-name">定期マガジンコース</div>
+        <div class="plan-price">¥1,000<span>/月</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 月4本以上の限定有料記事（投資・産業医・キャリア等）</li>
+          <li><span class="check">✓</span> バックナンバーへのアクセス</li>
+        </ul>
+        <a href="https://note.com/aiju_yu/membership" class="plan-cta outline" target="_blank">このプランで入会する</a>
+      </div>
+
+      <!-- プラン2 -->
+      <div class="plan-card featured">
+        <span class="plan-badge orange">人気</span>
+        <div class="plan-name">コミュニティコース</div>
+        <div class="plan-price">¥2,000<span>/月</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 月4本以上の限定有料記事（全プラン共通）</li>
+          <li><span class="check">✓</span> 専用LINEオープンチャットへの参加</li>
+          <li><span class="check">✓</span> Zoomオンライン会</li>
+          <li><span class="check">✓</span> 東京・名古屋・ベトナム オフ会</li>
+        </ul>
+        <a href="https://note.com/aiju_yu/membership" class="plan-cta primary" target="_blank">このプランで入会する</a>
+      </div>
+
+      <!-- プラン3 -->
+      <div class="plan-card">
+        <span class="plan-badge red">限定3枠</span>
+        <div class="plan-name">ゆーさん コーチングコース</div>
+        <div class="plan-price">¥20,000<span>/月</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> コミュニティコースの全特典</li>
+          <li><span class="check">✓</span> ゆーさんによる個別コーチング（月1回・1時間）</li>
+          <li><span class="check">✓</span> 最長6か月の集中コーチング</li>
+          <li><span class="check">✓</span> キャリア・生き方の解像度を上げる伴走型プラン</li>
+        </ul>
+        <a href="https://note.com/aiju_yu/membership" class="plan-cta outline" target="_blank">このプランで入会する</a>
+      </div>
+
     </div>
   </div>
 </section>
