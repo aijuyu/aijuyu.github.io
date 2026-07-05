@@ -100,6 +100,61 @@ nav {
 }
 .pod-cta a:hover { transform: translateY(-2px); }
 
+/* 会話吹き出し（talk） */
+.talk {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin: 28px 0;
+}
+.talk .avatar {
+  flex-shrink: 0; width: 66px; text-align: center;
+}
+.talk .avatar img {
+  width: 66px; height: 66px; object-fit: cover;
+  border-radius: 14px; border: 1px solid var(--border);
+  background: var(--white);
+}
+.talk .avatar .name {
+  display: block; font-size: 11px; color: var(--text-secondary);
+  margin-top: 4px; font-weight: 600;
+}
+.talk .bubble {
+  position: relative; max-width: 560px;
+  background: var(--white); border: 1.5px solid var(--accent);
+  border-radius: 14px; padding: 14px 18px;
+  font-size: 14.5px; line-height: 1.75; color: #333;
+}
+/* 左向き（アイジュ）：しっぽを左に */
+.talk .bubble::before, .talk .bubble::after {
+  content: ''; position: absolute; top: 20px;
+  border-style: solid;
+}
+.talk .bubble::before {
+  left: -9px; border-width: 8px 9px 8px 0;
+  border-color: transparent var(--accent) transparent transparent;
+}
+.talk .bubble::after {
+  left: -7px; border-width: 7px 8px 7px 0;
+  border-color: transparent var(--white) transparent transparent;
+}
+/* 右向き（ゆー）：アバターを右に、しっぽを右に */
+.talk.right { flex-direction: row-reverse; }
+.talk.right .bubble { border-color: #e8963d; }
+.talk.right .bubble::before {
+  left: auto; right: -9px;
+  border-width: 8px 0 8px 9px;
+  border-color: transparent transparent transparent #e8963d;
+}
+.talk.right .bubble::after {
+  left: auto; right: -7px;
+  border-width: 7px 0 7px 8px;
+  border-color: transparent transparent transparent var(--white);
+}
+@media (max-width: 480px) {
+  .talk .avatar, .talk .avatar img { width: 52px; }
+  .talk .avatar img { height: 52px; }
+  .talk .bubble { font-size: 13.5px; padding: 12px 14px; }
+}
+
 /* Related links */
 .related {
   background: var(--white); border: 1px solid var(--border);
