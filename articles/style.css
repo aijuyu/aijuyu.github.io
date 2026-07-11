@@ -173,6 +173,45 @@ nav {
   .talk .bubble { font-size: 13px; padding: 12px 14px; }
 }
 
+/* ---------- 書籍ランキング ---------- */
+.book-rank { list-style: none; counter-reset: book; margin: 26px 0 10px; }
+.book-item {
+  counter-increment: book;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 22px 22px 74px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.book-item::before {
+  content: counter(book);
+  position: absolute; left: 18px; top: 20px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 900; font-size: 20px;
+  color: #fff; background: var(--navy);
+  border-radius: 12px;
+}
+.book-item:nth-child(1)::before { background: linear-gradient(135deg, #e8a13d, #d98b1f); }
+.book-item:nth-child(2)::before { background: linear-gradient(135deg, #9db4c8, #7f9bb3); }
+.book-item:nth-child(3)::before { background: linear-gradient(135deg, #c9a878, #b6925c); }
+.book-title {
+  font-family: var(--font-head);
+  font-size: 17px; font-weight: 900; color: var(--navy);
+  line-height: 1.5; margin-bottom: 3px;
+}
+.book-author { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.book-item p { font-size: 14.5px; margin-bottom: 10px; }
+.book-for {
+  font-size: 13px; color: #3a3a40;
+  background: var(--accent-soft); border-radius: 8px;
+  padding: 8px 12px; display: inline-block;
+}
+.book-for.money { background: var(--money-soft); }
+.book-for b { color: var(--navy); }
+
 /* ---------- Podcast / CTA ---------- */
 .pod-cta {
   background: linear-gradient(135deg, #1a3a5c, #2d5a87);
