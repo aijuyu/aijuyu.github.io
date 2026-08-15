@@ -315,6 +315,9 @@
     }
     .ep-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
     .ep-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    a.episode-item { text-decoration: none; color: inherit; transition: opacity .15s; }
+    a.episode-item:hover { opacity: .72; }
+    a.episode-item:hover .ep-title { color: var(--accent); }
 
     /* Social */
     .social { background: var(--gradient); }
@@ -352,6 +355,7 @@
   <ul class="nav-links">
     <li><a href="#about">番組について</a></li>
     <li><a href="#profiles">パーソナリティ</a></li>
+    <li><a href="episodes/index.html">エピソード</a></li>
     <li><a href="articles/index.html">記事</a></li>
     <li><a href="#membership">メンバーシップ</a></li>
   </ul>
@@ -503,44 +507,46 @@
     <h2 class="section-title">最近のトーク</h2>
     <div class="divider"></div>
     <div class="episode-list">
-      <div class="episode-item">
-        <div class="ep-num">#9</div>
+<!-- EPISODES:START -->
+      <a class="episode-item" href="https://youtu.be/MZ7GbGYAPrc" target="_blank" rel="noopener">
+        <div class="ep-num">17-4</div>
         <div>
-          <div class="ep-title">医局を辞めて初めて気づいた「自分の人生を設計する」重要性</div>
-          <div class="ep-desc">レールを外れた医師の末路？外に出て初めて見えた自由と責任の話。</div>
+          <div class="ep-title">海外5年目医師「幼稚園からインターに入れるのはお勧めしない」</div>
+          <div class="ep-desc">【17-4】海外5年目医師「幼稚園からインターに入れるのはお勧めしない」</div>
         </div>
-      </div>
-      <div class="episode-item">
-        <div class="ep-num">#8</div>
+      </a>
+      <a class="episode-item" href="https://youtu.be/ViCG7mcup-Y" target="_blank" rel="noopener">
+        <div class="ep-num">17-3</div>
         <div>
-          <div class="ep-title">産業医バブルはこれからが本番？ストレスチェック義務化で加速する医師の巨大市場</div>
-          <div class="ep-desc">医局の外にある医師の仕事。産業医という選択肢の今と未来。</div>
+          <div class="ep-title">英語で収入が数百万変わった医師が語る「完璧に話す必要はない」理由</div>
+          <div class="ep-desc">【17-3】英語で収入が数百万変わった医師が語る「完璧に話す必要はない」理由</div>
         </div>
-      </div>
-      <div class="episode-item">
-        <div class="ep-num">#7</div>
+      </a>
+      <a class="episode-item" href="https://youtu.be/ogrYJuN1sPQ" target="_blank" rel="noopener">
+        <div class="ep-num">17-2</div>
         <div>
-          <div class="ep-title">「年収と幸せ」の相関を考える——「不幸じゃない」生き方を探す</div>
-          <div class="ep-desc">お金は幸せを買えるか。2人がそれぞれの「幸せのライン」を語り合う。</div>
+          <div class="ep-title">ベトナムで働く医師が語る「日本人の完璧主義が英語と相性最悪な理由」</div>
+          <div class="ep-desc">【17-2】ベトナムで働く医師が語る「日本人の完璧主義が英語と相性最悪な理由」</div>
         </div>
-      </div>
-      <div class="episode-item">
-        <div class="ep-num">#4</div>
+      </a>
+      <a class="episode-item" href="https://youtu.be/zB-JvyWkj_0" target="_blank" rel="noopener">
+        <div class="ep-num">17-1</div>
         <div>
-          <div class="ep-title">億り人が語る「純資産1億を超えて得られたもの」</div>
-          <div class="ep-desc">日本株で2億超を稼いだリアル。お金で変わること、変わらないこと。</div>
+          <div class="ep-title">世界一周医師「英語は『Study』ではなく[『Learn』すべき」</div>
+          <div class="ep-desc">【17-1】世界一周医師「英語は『Study』ではなく[『Learn』すべき」</div>
         </div>
-      </div>
-      <div class="episode-item">
-        <div class="ep-num">#2</div>
+      </a>
+      <a class="episode-item" href="https://youtu.be/4j-pGGfLJU8" target="_blank" rel="noopener">
+        <div class="ep-num">16-2</div>
         <div>
-          <div class="ep-title">専門医としての完璧主義を「捨てる」勇気で得られるキャリアの新境地</div>
-          <div class="ep-desc">100点を1つより70点を15個。キャリアの多軸化という考え方。</div>
+          <div class="ep-title">600人の医師が集まるコミュニティをイチから育てた産業医の仮説思考【ゲスト：角田拓実先生】</div>
+          <div class="ep-desc">【16-2】600人の医師が集まるコミュニティをイチから育てた産業医の仮説思考【ゲスト：角田拓実先生】</div>
         </div>
-      </div>
+      </a>
+<!-- EPISODES:END -->
     </div>
     <div style="text-align:center; margin-top:28px;">
-      <a href="https://www.youtube.com/@aiju-yu" class="btn-primary" style="display:inline-block; background:var(--primary); color:white;" target="_blank">すべてのエピソードを見る</a>
+      <a href="episodes/index.html" class="btn-primary" style="display:inline-block; background:var(--primary); color:white;">すべてのエピソードを見る</a>
     </div>
   </div>
 </section>

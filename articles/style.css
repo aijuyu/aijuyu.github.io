@@ -55,6 +55,16 @@ nav {
 }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(217,79,61,0.4); }
 
+/* エピソード／記事への導線を nav に足したぶんの調整 */
+nav { justify-content: flex-start; gap: 22px; }
+.nav-cta { margin-left: auto; }
+.nav-mid {
+  color: #5a564e; text-decoration: none;
+  font-size: 13px; font-weight: 600; transition: color .2s;
+}
+.nav-mid:hover { color: var(--navy); }
+@media (max-width: 560px) { .nav-mid { display: none; } }
+
 /* ---------- 2カラムレイアウト ---------- */
 .layout {
   max-width: 1140px; margin: 0 auto;
