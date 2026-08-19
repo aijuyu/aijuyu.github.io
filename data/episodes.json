@@ -15,7 +15,12 @@
     "note_url": "https://note.com/aiju_yu/n/n89aa73b8893e",
     "spotify_url": null,
     "thumb": "thumb/1-1.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "shu4-hatarakikata.html",
+      "senmoni-career.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "1-2",
@@ -33,7 +38,12 @@
     "note_url": "https://note.com/aiju_yu/n/n137a063c6bc6",
     "spotify_url": null,
     "thumb": "thumb/1-2.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html",
+      "shu4-hatarakikata.html",
+      "joseiishi-career.html",
+      "ikyoku-yamete-yokatta.html"
+    ]
   },
   {
     "ep": "1-3",
@@ -51,7 +61,9 @@
     "note_url": "https://note.com/aiju_yu/n/nc10e543732ee",
     "spotify_url": null,
     "thumb": "thumb/1-3.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html"
+    ]
   },
   {
     "ep": "1-4",
@@ -69,7 +81,12 @@
     "note_url": "https://note.com/aiju_yu/n/nb06b38affe6b",
     "spotify_url": null,
     "thumb": "thumb/1-4.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "senmoni-career.html",
+      "ikyoku-yamekata.html",
+      "career-plan.html"
+    ]
   },
   {
     "ep": "2-1",
@@ -87,7 +104,12 @@
     "note_url": "https://note.com/aiju_yu/n/ncaecf6f00ba8",
     "spotify_url": null,
     "thumb": "thumb/2-1.jpg",
-    "related": []
+    "related": [
+      "shu4-hatarakikata.html",
+      "ikyoku-yamekata.html",
+      "ikyoku-yamete-yokatta.html",
+      "ikyoku-yameru-qa.html"
+    ]
   },
   {
     "ep": "2-2",
@@ -105,7 +127,12 @@
     "note_url": "https://note.com/aiju_yu/n/n056b326aabab",
     "spotify_url": null,
     "thumb": "thumb/2-2.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "ishi-10nenme.html",
+      "senmoni-career.html",
+      "ikyoku-yamekata.html"
+    ]
   },
   {
     "ep": "2-3",
@@ -123,7 +150,9 @@
     "note_url": "https://note.com/aiju_yu/n/na4a1d14118ae",
     "spotify_url": null,
     "thumb": "thumb/2-3.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html"
+    ]
   },
   {
     "ep": "2-4",
@@ -141,7 +170,9 @@
     "note_url": "https://note.com/aiju_yu/n/n91e92fa691be",
     "spotify_url": null,
     "thumb": "thumb/2-4.jpg",
-    "related": []
+    "related": [
+      "shu4-hatarakikata.html"
+    ]
   },
   {
     "ep": "3-1",
@@ -159,7 +190,12 @@
     "note_url": "https://note.com/aiju_yu/n/nbbd472d269d7",
     "spotify_url": null,
     "thumb": "thumb/3-1.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "shu4-hatarakikata.html",
+      "ishi-ikikata-books.html",
+      "joseiishi-career.html"
+    ]
   },
   {
     "ep": "3-2",
@@ -177,7 +213,11 @@
     "note_url": "https://note.com/aiju_yu/n/n8edafaacd020",
     "spotify_url": null,
     "thumb": "thumb/3-2.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "kaigai-ishi-vietnam.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "3-3",
@@ -195,7 +235,12 @@
     "note_url": "https://note.com/aiju_yu/n/n744c34ddd7e4",
     "spotify_url": null,
     "thumb": "thumb/3-3.jpg",
-    "related": []
+    "related": [
+      "career-change.html",
+      "kaigai-ishi-vietnam.html",
+      "shu4-hatarakikata.html",
+      "ikyoku-yamete-yokatta.html"
+    ]
   },
   {
     "ep": "3-4",
@@ -213,7 +258,12 @@
     "note_url": "https://note.com/aiju_yu/n/n10763652cbc5",
     "spotify_url": null,
     "thumb": "thumb/3-4.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "shu4-hatarakikata.html",
+      "ishi-ikikata-books.html",
+      "joseiishi-career.html"
+    ]
   },
   {
     "ep": "4-1",
@@ -231,7 +281,12 @@
     "note_url": "https://note.com/aiju_yu/n/nbf97d3851c47",
     "spotify_url": null,
     "thumb": "thumb/4-1.jpg",
-    "related": []
+    "related": [
+      "ishi-okane.html",
+      "ishi-hojinka.html",
+      "ishi-shisan-keisei.html",
+      "ishi-money-books.html"
+    ]
   },
   {
     "ep": "4-2",
@@ -249,7 +304,12 @@
     "note_url": "https://note.com/aiju_yu/n/n97edd46a67d9",
     "spotify_url": null,
     "thumb": "thumb/4-2.jpg",
-    "related": []
+    "related": [
+      "ishi-okane.html",
+      "die-with-zero-ishi.html",
+      "ishi-money-books.html",
+      "ishi-shisan-keisei.html"
+    ]
   },
   {
     "ep": "4-3",
@@ -267,7 +327,11 @@
     "note_url": "https://note.com/aiju_yu/n/n9b711f3333ed",
     "spotify_url": null,
     "thumb": "thumb/4-3.jpg",
-    "related": []
+    "related": [
+      "ishi-okane.html",
+      "ishi-shisan-keisei.html",
+      "ishi-money-books.html"
+    ]
   },
   {
     "ep": "4-4",
@@ -285,7 +349,12 @@
     "note_url": "https://note.com/aiju_yu/n/n5032e1fc8716",
     "spotify_url": null,
     "thumb": "thumb/4-4.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "ishi-okane.html",
+      "kodomo-eigo-kyoiku.html",
+      "ishi-career-books.html"
+    ]
   },
   {
     "ep": "5-1",
@@ -303,7 +372,12 @@
     "note_url": "https://note.com/aiju_yu/n/n217e8d188b58",
     "spotify_url": null,
     "thumb": "thumb/5-1.jpg",
-    "related": []
+    "related": [
+      "sangyoi-career.html",
+      "shu4-hatarakikata.html",
+      "hijokin-jikyu.html",
+      "joseiishi-career.html"
+    ]
   },
   {
     "ep": "5-2",
@@ -321,7 +395,12 @@
     "note_url": "https://note.com/aiju_yu/n/n8afce9910a92",
     "spotify_url": null,
     "thumb": "thumb/5-2.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html",
+      "shu4-hatarakikata.html",
+      "joseiishi-career.html",
+      "ishi-jikan-books.html"
+    ]
   },
   {
     "ep": "5-3",
@@ -339,7 +418,12 @@
     "note_url": "https://note.com/aiju_yu/n/n6f4e8ef926e5",
     "spotify_url": null,
     "thumb": "thumb/5-3.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "kaigai-ishi-vietnam.html",
+      "shu4-hatarakikata.html",
+      "ishi-jikan-books.html"
+    ]
   },
   {
     "ep": "5-4",
@@ -357,7 +441,10 @@
     "note_url": "https://note.com/aiju_yu/n/ne9cd8d73c414",
     "spotify_url": null,
     "thumb": "thumb/5-4.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "shu4-hatarakikata.html"
+    ]
   },
   {
     "ep": "5-extra1",
@@ -429,7 +516,11 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/6.jpg",
-    "related": []
+    "related": [
+      "ishi-okane.html",
+      "ishi-shisan-keisei.html",
+      "ishi-money-books.html"
+    ]
   },
   {
     "ep": "6-extra1",
@@ -501,7 +592,12 @@
     "note_url": "https://note.com/aiju_yu/n/nb000850d6321",
     "spotify_url": null,
     "thumb": "thumb/7-1.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html",
+      "shu4-hatarakikata.html",
+      "ikyoku-yamekata.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "7-2",
@@ -519,7 +615,10 @@
     "note_url": "https://note.com/aiju_yu/n/ne2eefb991f33",
     "spotify_url": null,
     "thumb": "thumb/7-2.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "7-3",
@@ -537,7 +636,12 @@
     "note_url": "https://note.com/aiju_yu/n/n1a1cccf91386",
     "spotify_url": null,
     "thumb": "thumb/7-3.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "ishi-okane.html",
+      "die-with-zero-ishi.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "7-4",
@@ -555,7 +659,12 @@
     "note_url": "https://note.com/aiju_yu/n/nb292a39d4dfb",
     "spotify_url": null,
     "thumb": "thumb/7-4.jpg",
-    "related": []
+    "related": [
+      "ishi-10nenme.html",
+      "die-with-zero-ishi.html",
+      "ishi-ikikata-books.html",
+      "career-coaching.html"
+    ]
   },
   {
     "ep": "7-extra",
@@ -591,7 +700,12 @@
     "note_url": "https://note.com/aiju_yu/n/n930fe0bd2724",
     "spotify_url": null,
     "thumb": "thumb/8-1.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "career-change.html",
+      "senmoni-career.html",
+      "ishi-eigo-shunyu.html"
+    ]
   },
   {
     "ep": "8-2",
@@ -609,7 +723,12 @@
     "note_url": "https://note.com/aiju_yu/n/na817f4bff609",
     "spotify_url": null,
     "thumb": "thumb/8-2.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "senmoni-career.html",
+      "kaigai-ishi-vietnam.html",
+      "ishi-ikikata-books.html"
+    ]
   },
   {
     "ep": "8-3",
@@ -627,7 +746,12 @@
     "note_url": "https://note.com/aiju_yu/n/n67547d6cf24d",
     "spotify_url": null,
     "thumb": "thumb/8-3.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "senmoni-career.html",
+      "sangyoi-career.html",
+      "kaigai-ishi-vietnam.html"
+    ]
   },
   {
     "ep": "8-4",
@@ -645,7 +769,12 @@
     "note_url": "https://note.com/aiju_yu/n/n77608a0f7b65",
     "spotify_url": null,
     "thumb": "thumb/8-4.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "senmoni-career.html",
+      "kaigai-ishi-vietnam.html",
+      "ishi-eigo-shunyu.html"
+    ]
   },
   {
     "ep": "8-extra1",
@@ -699,7 +828,12 @@
     "note_url": "https://note.com/aiju_yu/n/n15092c282d4a",
     "spotify_url": null,
     "thumb": "thumb/9-1.jpg",
-    "related": []
+    "related": [
+      "shu4-hatarakikata.html",
+      "kaigai-ishi-vietnam.html",
+      "joseiishi-career.html",
+      "ikyoku-yamete-yokatta.html"
+    ]
   },
   {
     "ep": "9-2",
@@ -717,7 +851,12 @@
     "note_url": "https://note.com/aiju_yu/n/nd488896d05d8",
     "spotify_url": null,
     "thumb": "thumb/9-2.jpg",
-    "related": []
+    "related": [
+      "ishi-okane.html",
+      "die-with-zero-ishi.html",
+      "kaigai-ishi-vietnam.html",
+      "ishi-shisan-keisei.html"
+    ]
   },
   {
     "ep": "9-3",
@@ -735,7 +874,10 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/9-3.jpg",
-    "related": []
+    "related": [
+      "career-plan.html",
+      "ishi-10nenme.html"
+    ]
   },
   {
     "ep": "9-4",
@@ -753,7 +895,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/9-4.jpg",
-    "related": []
+    "related": [
+      "career-change.html",
+      "career-plan.html",
+      "kodomo-eigo-kyoiku.html",
+      "ishi-10nenme.html"
+    ]
   },
   {
     "ep": "10-1",
@@ -771,7 +918,9 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/10-1.jpg",
-    "related": []
+    "related": [
+      "sangyoi-career.html"
+    ]
   },
   {
     "ep": "10-2",
@@ -789,7 +938,9 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/10-2.jpg",
-    "related": []
+    "related": [
+      "sangyoi-career.html"
+    ]
   },
   {
     "ep": "10-3",
@@ -807,7 +958,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/10-3.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "hijokin-jikyu.html",
+      "sangyoi-career.html",
+      "ishi-career-books.html"
+    ]
   },
   {
     "ep": "10-extra",
@@ -843,7 +999,12 @@
     "note_url": "https://note.com/aiju_yu/n/nde1aa1e01ae3",
     "spotify_url": null,
     "thumb": "thumb/11-1.jpg",
-    "related": []
+    "related": [
+      "ishi-10nenme.html",
+      "shu4-hatarakikata.html",
+      "ishi-jikan-books.html",
+      "sangyoi-career.html"
+    ]
   },
   {
     "ep": "11-2",
@@ -861,7 +1022,12 @@
     "note_url": "https://note.com/aiju_yu/n/nea52dfed3094",
     "spotify_url": null,
     "thumb": "thumb/11-2.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "hijokin-jikyu.html",
+      "ishi-10nenme.html",
+      "senmoni-career.html"
+    ]
   },
   {
     "ep": "11-3",
@@ -879,7 +1045,11 @@
     "note_url": "https://note.com/aiju_yu/n/n14cc9de9f72d",
     "spotify_url": null,
     "thumb": "thumb/11-3.jpg",
-    "related": []
+    "related": [
+      "career-change.html",
+      "hijokin-jikyu.html",
+      "shu4-hatarakikata.html"
+    ]
   },
   {
     "ep": "11-4",
@@ -897,7 +1067,9 @@
     "note_url": "https://note.com/aiju_yu/n/n87f33a07e341",
     "spotify_url": null,
     "thumb": "thumb/11-4.jpg",
-    "related": []
+    "related": [
+      "shu4-hatarakikata.html"
+    ]
   },
   {
     "ep": "12-1",
@@ -915,7 +1087,12 @@
     "note_url": "https://note.com/aiju_yu/n/n0e7fe2ead7a4",
     "spotify_url": null,
     "thumb": "thumb/12-1.jpg",
-    "related": []
+    "related": [
+      "ikyoku-towa.html",
+      "ikyoku-yakushoku.html",
+      "ikyoku-nenshu.html",
+      "ikyoku-merit.html"
+    ]
   },
   {
     "ep": "12-2",
@@ -933,7 +1110,12 @@
     "note_url": "https://note.com/aiju_yu/n/nf454aaf20cb4",
     "spotify_url": null,
     "thumb": "thumb/12-2.jpg",
-    "related": []
+    "related": [
+      "ikyoku-towa.html",
+      "ikyoku-nenshu.html",
+      "ikyoku-merit.html",
+      "ikyoku-hisho.html"
+    ]
   },
   {
     "ep": "12-3",
@@ -951,7 +1133,12 @@
     "note_url": "https://note.com/aiju_yu/n/n325ffa95e504",
     "spotify_url": null,
     "thumb": "thumb/12-3.jpg",
-    "related": []
+    "related": [
+      "ikyoku-towa.html",
+      "ishi-eigo-benkyou.html",
+      "ikyoku-merit.html",
+      "ishi-eigo-shunyu.html"
+    ]
   },
   {
     "ep": "12-4",
@@ -969,7 +1156,12 @@
     "note_url": "https://note.com/aiju_yu/n/n9eb3b4c98bd5",
     "spotify_url": null,
     "thumb": "thumb/12-4.jpg",
-    "related": []
+    "related": [
+      "ikyoku-towa.html",
+      "ikyoku-yamekata.html",
+      "ikyoku-hisho.html",
+      "ikyoku-yamete-yokatta.html"
+    ]
   },
   {
     "ep": "13-1",
@@ -987,7 +1179,9 @@
     "note_url": "https://note.com/aiju_yu/n/nb1929c691a4d",
     "spotify_url": null,
     "thumb": "thumb/13-1.jpg",
-    "related": []
+    "related": [
+      "ishi-hojinka.html"
+    ]
   },
   {
     "ep": "13-extra",
@@ -1023,7 +1217,12 @@
     "note_url": "https://note.com/aiju_yu/n/n30d7101aaaf6",
     "spotify_url": null,
     "thumb": "thumb/14-1.jpg",
-    "related": []
+    "related": [
+      "career-change.html",
+      "hijokin-jikyu.html",
+      "sangyoi-career.html",
+      "kodomo-eigo-kyoiku.html"
+    ]
   },
   {
     "ep": "14-extra",
@@ -1059,7 +1258,11 @@
     "note_url": "https://note.com/aiju_yu/n/na7c0d6406767",
     "spotify_url": null,
     "thumb": "thumb/15-1.jpg",
-    "related": []
+    "related": [
+      "career-change.html",
+      "kaigai-ishi-vietnam.html",
+      "die-with-zero-ishi.html"
+    ]
   },
   {
     "ep": "15-2",
@@ -1077,7 +1280,9 @@
     "note_url": "https://note.com/aiju_yu/n/n436630b1c364",
     "spotify_url": null,
     "thumb": "thumb/15-2.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html"
+    ]
   },
   {
     "ep": "15-3",
@@ -1095,7 +1300,9 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/15-3.jpg",
-    "related": []
+    "related": [
+      "kodomo-eigo-kyoiku.html"
+    ]
   },
   {
     "ep": "15-4",
@@ -1113,7 +1320,9 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/15-4.jpg",
-    "related": []
+    "related": [
+      "kaigai-ishi-vietnam.html"
+    ]
   },
   {
     "ep": "16-1",
@@ -1131,7 +1340,9 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/16-1.jpg",
-    "related": []
+    "related": [
+      "sangyoi-career.html"
+    ]
   },
   {
     "ep": "16-2",
@@ -1149,7 +1360,10 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/16-2.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "sangyoi-career.html"
+    ]
   },
   {
     "ep": "17-1",
@@ -1167,7 +1381,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/17-1.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "career-plan.html",
+      "gaikokujin-kanja-eigo.html",
+      "ishi-10nenme.html"
+    ]
   },
   {
     "ep": "17-2",
@@ -1185,7 +1404,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/17-2.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "kodomo-eigo-kyoiku.html",
+      "ishi-eigo-shunyu.html",
+      "gaikokujin-kanja-eigo.html"
+    ]
   },
   {
     "ep": "17-3",
@@ -1203,7 +1427,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/17-3.jpg",
-    "related": []
+    "related": [
+      "ishi-career.html",
+      "ishi-eigo-benkyou.html",
+      "career-plan.html",
+      "ishi-eigo-shunyu.html"
+    ]
   },
   {
     "ep": "17-4",
@@ -1221,7 +1450,12 @@
     "note_url": null,
     "spotify_url": null,
     "thumb": "thumb/17-4.jpg",
-    "related": []
+    "related": [
+      "ishi-eigo-benkyou.html",
+      "kodomo-eigo-kyoiku.html",
+      "gaikokujin-kanja-eigo.html",
+      "ishi-eigo-shunyu.html"
+    ]
   },
   {
     "ep": "18-1",
