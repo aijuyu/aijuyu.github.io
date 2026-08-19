@@ -375,8 +375,8 @@
     "related": [
       "sangyoi-career.html",
       "shu4-hatarakikata.html",
-      "hijokin-jikyu.html",
-      "joseiishi-career.html"
+      "sangyoi-anken.html",
+      "hijokin-jikyu.html"
     ]
   },
   {
@@ -919,7 +919,10 @@
     "spotify_url": null,
     "thumb": "thumb/10-1.jpg",
     "related": [
-      "sangyoi-career.html"
+      "sangyoi-career.html",
+      "roudou-eisei-consultant.html",
+      "sangyoi-anken.html",
+      "sangyoi-tanka.html"
     ]
   },
   {
@@ -939,7 +942,10 @@
     "spotify_url": null,
     "thumb": "thumb/10-2.jpg",
     "related": [
-      "sangyoi-career.html"
+      "sangyoi-career.html",
+      "sangyoi-anken.html",
+      "sangyoi-tanka.html",
+      "roudou-eisei-consultant.html"
     ]
   },
   {
@@ -1048,7 +1054,8 @@
     "related": [
       "career-change.html",
       "hijokin-jikyu.html",
-      "shu4-hatarakikata.html"
+      "shu4-hatarakikata.html",
+      "sangyoi-tanka.html"
     ]
   },
   {
@@ -1341,7 +1348,10 @@
     "spotify_url": null,
     "thumb": "thumb/16-1.jpg",
     "related": [
-      "sangyoi-career.html"
+      "sangyoi-career.html",
+      "sangyoi-anken.html",
+      "sangyoi-tanka.html",
+      "roudou-eisei-consultant.html"
     ]
   },
   {
@@ -1362,7 +1372,9 @@
     "thumb": "thumb/16-2.jpg",
     "related": [
       "ishi-eigo-benkyou.html",
-      "sangyoi-career.html"
+      "sangyoi-career.html",
+      "sangyoi-tanka.html",
+      "roudou-eisei-consultant.html"
     ]
   },
   {
