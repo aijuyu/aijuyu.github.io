@@ -1,2 +1,7 @@
 # トップ画像の作業ディレクトリ。完成品だけ articles/ogp/ にコピーする
 _ogpbuild/
+
+# Astro
+node_modules/
+dist/
+.astro/
