@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aijuyu-github-io",
+  "compatibility_date": "2026-09-08",
+  "observability": { "enabled": true },
+
+  // Astroのビルド成果物だけを配る。
+  // ここを "." にすると .git ごとアップロードしようとして
+  // 25MiBのアセット上限に引っかかる（実際に一度落ちた）。
+  "assets": { "directory": "./dist" }
+}
