@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aijuyu.github.io/sitemap.xml
+Sitemap: https://ikyokunosoto.com/sitemap.xml
