@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { loadEpisodes, articleTitle, SITE, MEMBERSHIP_URL } from "../../lib/episodes.mjs";
+
+export async function getStaticPaths() {
+  return loadEpisodes().map((rec) => ({
+    params: { slug: `ep${rec.ep}` },
+    props: { rec },
+  }));
+}
+
+const { rec } = Astro.props;
+const fullTitle = `【${rec.ep}】${rec.title}`;
+const desc = (rec.lead || `Podcast「医局の外で会いましょう」${fullTitle}。`).slice(0, 110);
+const ogImage = rec.thumb ? `${SITE}/episodes/${rec.thumb}` : `${SITE}/ogp-social.jpg`;
+const thumbSrc = rec.thumb || `https://i.ytimg.com/vi/${rec.video_id}/hqdefault.jpg`;
+
+const jsonld = {
+  "@context": "https://schema.org",
+  "@type": "PodcastEpisode",
+  url: `${SITE}/episodes/ep${rec.ep}.html`,
+  name: fullTitle,
+  datePublished: rec.published,
+  episodeNumber: rec.part || 1,
+  partOfSeries: {
+    "@type": "PodcastSeries",
+    name: "医局の外で会いましょう",
+    url: SITE + "/",
+  },
+  partOfSeason: { "@type": "PodcastSeason", seasonNumber: rec.season },
+  associatedMedia: {
+    "@type": "VideoObject",
+    name: rec.title_yt,
+    uploadDate: rec.published,
+    thumbnailUrl: rec.thumb ? `${SITE}/episodes/${rec.thumb}` : "",
+    embedUrl: `https://www.youtube.com/embed/${rec.video_id}`,
+  },
+};
+
+const crumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "ホーム", item: SITE + "/" },
+    { "@type": "ListItem", position: 2, name: "エピソード", item: SITE + "/episodes/" },
+    { "@type": "ListItem", position: 3, name: fullTitle },
+  ],
+};
+---
+<BaseLayout
+  title={`${fullTitle}｜医局の外で会いましょう`}
+  desc={desc}
+  canonical={`${SITE}/episodes/ep${rec.ep}.html`}
+  ogTitle={fullTitle}
+  ogType="article"
+  ogImage={ogImage}
+>
+<div class="layout">
+<div class="article-wrap">
+  <div class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="index.html">エピソード</a> › {fullTitle}</div>
+
+  <header class="article-header">
+    <div class="ep-badge"><span class="season-tag">SEASON {rec.season}</span><span class="ep-tag">{rec.ep}</span></div>
+    <h1>{rec.title}</h1>
+    <div class="article-meta">{rec.published} 配信</div>
+  </header>
+
+  <button class="video-facade" data-video={rec.video_id} data-label={fullTitle} aria-label={`${fullTitle} を再生`}>
+    <img src={thumbSrc} alt={fullTitle} loading="eager" fetchpriority="high">
+    <span class="play"></span>
+  </button>
+
+  <div class="article-body" set:html={rec.bodyHtml}></div>
+
+  <div class="listen">
+    <div class="listen-title">この回を聴く</div>
+    <a class="yt" href={rec.youtube_url} target="_blank">YouTubeで観る</a>
+    {rec.spotify_url && <a class="sp" href={rec.spotify_url} target="_blank">Spotifyで聴く</a>}
+    <a class="note" href={MEMBERSHIP_URL} target="_blank">メンバーシップに入る</a>
+  </div>
+
+  {rec.related && rec.related.length > 0 && (
+    <div class="related">
+      <h3>あわせて読みたい</h3>
+      <ul>
+        {rec.related.map((href) => (
+          <li><a href={`../articles/${href}`}>{articleTitle(href)}</a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {(rec.prev || rec.next) && (
+    <div class="ep-nav">
+      {rec.prev && (
+        <a class="prev" href={`ep${rec.prev.ep}.html`}><span class="dir">← 前の回　{rec.prev.ep}</span><span class="t">{rec.prev.title}</span></a>
+      )}
+      {rec.next && (
+        <a class="next" href={`ep${rec.next.ep}.html`}><span class="dir">次の回　{rec.next.ep} →</span><span class="t">{rec.next.title}</span></a>
+      )}
+    </div>
+  )}
+
+  <a class="back-all" href="index.html">全話一覧を見る</a>
+</div>
+
+<Sidebar />
+</div>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld, null, 2)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(crumbs, null, 2)}></script>
+</BaseLayout>

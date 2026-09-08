@@ -1,0 +1,47 @@
+---
+// 全ページ共通の <head> と外枠。
+// ここ1枚を直せば全ページに効く、というのがAstro化の目的。
+import Nav from "../components/Nav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const {
+  title,
+  desc,
+  canonical,
+  ogTitle,
+  ogType = "article",
+  ogImage,
+  cssPrefix = "",
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../icon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta name="theme-color" content="#1a3a5c">
+<meta name="description" content={desc}>
+<link rel="canonical" href={canonical}>
+<meta property="og:title" content={ogTitle}>
+<meta property="og:description" content={desc}>
+<meta property="og:type" content={ogType}>
+<meta property="og:image" content={ogImage}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content={ogImage}>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href={`${cssPrefix}../articles/style.css`}>
+<link rel="stylesheet" href={`${cssPrefix}style.css`}>
+</head>
+<body>
+<Nav prefix={cssPrefix} />
+<slot />
+<SiteFooter />
+</body>
+</html>

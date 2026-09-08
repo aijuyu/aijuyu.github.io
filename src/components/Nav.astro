@@ -1,0 +1,9 @@
+---
+const { prefix = "" } = Astro.props;
+---
+<nav>
+  <a href={`${prefix}../index.html`} class="nav-logo">医局の外で会いましょう</a>
+  <a href="index.html" class="nav-mid">エピソード</a>
+  <a href={`${prefix}../articles/index.html`} class="nav-mid">記事</a>
+  <a href="https://note.com/aiju_yu/membership" class="nav-cta" target="_blank">入会する</a>
+</nav>

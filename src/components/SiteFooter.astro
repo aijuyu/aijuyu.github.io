@@ -1,0 +1,16 @@
+<footer>
+  <p>© 2026 <a href="../index.html">医局の外で会いましょう</a> — アイジュ &amp; ゆー</p>
+</footer>
+
+<script is:inline>
+document.querySelectorAll('.video-facade').forEach(function (el) {
+  el.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + el.dataset.video + '?autoplay=1&rel=0';
+    f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    f.title = el.dataset.label || '本編動画';
+    el.replaceChildren(f);
+  }, { once: true });
+});
+</script>
