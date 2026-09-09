@@ -11,7 +11,8 @@ import { parseSiteMd, blocksToHtml, compareEp, unescapeHtml } from "./render.mjs
 const ROOT = process.cwd();
 const EP_JSON = path.join(ROOT, "public", "data", "episodes.json");
 const MD_DIR = path.join(ROOT, "src", "episodes-md");
-const ARTICLES_DIR = path.join(ROOT, "public", "articles");
+// 記事HTMLは src/articles-src/ にある。related のラベルはそこから引く
+const ARTICLES_DIR = path.join(ROOT, "src", "articles-src");
 
 export const SITE = "https://ikyokunosoto.com";
 export const MEMBERSHIP_URL = "https://note.com/aiju_yu/membership";
