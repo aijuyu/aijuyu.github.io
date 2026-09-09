@@ -1,0 +1,6 @@
+# html_handling:"none" だと /dir/ から index.html への解決が行われないため、
+# ディレクトリURLだけ200書き換えで明示する。
+# 301ではなく200なので、URL自体は変わらない。
+/          /index.html           200
+/articles/ /articles/index.html  200
+/episodes/ /episodes/index.html  200

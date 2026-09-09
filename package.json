@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "postbuild": "node -e \"require('fs').copyFileSync('src/_redirects','dist/_redirects')\""
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.6.0",

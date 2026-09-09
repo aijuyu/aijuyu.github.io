@@ -4,8 +4,15 @@
   "compatibility_date": "2026-09-08",
   "observability": { "enabled": true },
 
-  // Astroのビルド成果物だけを配る。
-  // ここを "." にすると .git ごとアップロードしようとして
-  // 25MiBのアセット上限に引っかかる（実際に一度落ちた）。
-  "assets": { "directory": "./dist" }
+  "assets": {
+    // Astroのビルド成果物だけを配る。
+    // ここを "." にすると .git ごとアップロードしようとして
+    // 25MiBのアセット上限に当たる（実際に一度落ちた）。
+    "directory": "./dist",
+
+    // 既定の "auto-trailing-slash" は /foo.html を /foo へ307で飛ばす。
+    // 既存98URLは全て .html 付きでインデックス済みなので、
+    // これを許すとドメイン移行の直後に2度目のURL変更になる。
+    "html_handling": "none"
+  }
 }
