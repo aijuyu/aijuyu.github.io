@@ -1,6 +1,7 @@
-# www は apex へ寄せる。GitHub Pages時代は301で飛んでいたが、
-# Workersへ移したあとは www も200を返してしまい重複コンテンツになる。
-https://www.ikyokunosoto.com/* https://ikyokunosoto.com/:splat 301
+# 注意: Workers Static Assets の _redirects はパス指定のみ。
+# ホスト名を含む絶対URL指定（www→apex など）は無視される。
+# Pagesの _redirects とは仕様が違うので、ホスト単位の転送は
+# Cloudflareの Redirect Rules 側で持つこと。
 
 # html_handling:"none" だと /dir/ から index.html への解決が行われないため、
 # ディレクトリURLだけ200書き換えで明示する。
