@@ -5,3 +5,4 @@ _ogpbuild/
 node_modules/
 dist/
 .astro/
+.wrangler/
