@@ -1,17 +1,17 @@
 ---
-// 全ページ共通の <head> と外枠。
-// ここ1枚を直せば全ページに効く、というのがAstro化の目的。
-import Nav from "../components/Nav.astro";
-import SiteFooter from "../components/SiteFooter.astro";
-
+// 全ページ共通の <head> と html/body の外枠。
+// nav と footer はページ種別で中身が違うので、呼ぶ側がスロットに入れる。
 const {
   title,
   desc,
   canonical,
   ogTitle,
+  ogDesc,          // 記事はdescriptionとog:descriptionが別文言
   ogType = "article",
   ogImage,
-  cssPrefix = "",
+  twImage,         // 省略時は ogImage
+  stylesheets = [],
+  headExtra = "",  // FAQPageなど、ページ固有の構造化データ
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -28,20 +28,18 @@ const {
 <meta name="description" content={desc}>
 <link rel="canonical" href={canonical}>
 <meta property="og:title" content={ogTitle}>
-<meta property="og:description" content={desc}>
+<meta property="og:description" content={ogDesc ?? desc}>
 <meta property="og:type" content={ogType}>
 <meta property="og:image" content={ogImage}>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content={ogImage}>
+<meta name="twitter:image" content={twImage ?? ogImage}>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href={`${cssPrefix}../articles/style.css`}>
-<link rel="stylesheet" href={`${cssPrefix}style.css`}>
+{stylesheets.map((href) => <link rel="stylesheet" href={href} />)}
+{headExtra && <Fragment set:html={headExtra} />}
 </head>
 <body>
-<Nav prefix={cssPrefix} />
 <slot />
-<SiteFooter />
 </body>
 </html>

@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Sidebar from "../../components/Sidebar.astro";
+import EpisodeNav from "../../components/EpisodeNav.astro";
+import EpisodeSidebar from "../../components/EpisodeSidebar.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VideoFacadeScript from "../../components/VideoFacadeScript.astro";
 import { loadEpisodes, articleTitle, SITE, MEMBERSHIP_URL } from "../../lib/episodes.mjs";
 
 export async function getStaticPaths() {
@@ -55,7 +58,9 @@ const crumbs = {
   ogTitle={fullTitle}
   ogType="article"
   ogImage={ogImage}
+  stylesheets={["../articles/style.css", "style.css"]}
 >
+<EpisodeNav />
 <div class="layout">
 <div class="article-wrap">
   <div class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="index.html">エピソード</a> › {fullTitle}</div>
@@ -105,9 +110,11 @@ const crumbs = {
   <a class="back-all" href="index.html">全話一覧を見る</a>
 </div>
 
-<Sidebar />
+<EpisodeSidebar />
 </div>
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld, null, 2)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(crumbs, null, 2)}></script>
+<SiteFooter />
+<VideoFacadeScript />
 </BaseLayout>

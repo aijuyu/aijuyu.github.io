@@ -1,0 +1,36 @@
+---
+// 記事41本。本文HTMLは元のまま持ち回り、head/nav/sidebar/footer だけ
+// コンポーネントに寄せている。Markdown化は独自マークアップを壊すので行わない。
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleNav from "../../components/ArticleNav.astro";
+import ArticleSidebar from "../../components/ArticleSidebar.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { loadArticles } from "../../lib/articles.mjs";
+
+export async function getStaticPaths() {
+  return loadArticles().map((a) => ({
+    params: { slug: a.slug },
+    props: { a },
+  }));
+}
+
+const { a } = Astro.props;
+---
+<BaseLayout
+  title={a.title}
+  desc={a.desc}
+  canonical={a.canonical}
+  ogTitle={a.ogTitle}
+  ogDesc={a.ogDesc}
+  ogType={a.ogType}
+  ogImage={a.ogImage}
+  twImage={a.twImage}
+  stylesheets={["style.css"]}
+  headExtra={a.headExtra}
+>
+<ArticleNav />
+<Fragment set:html={a.body} />
+<ArticleSidebar />
+<Fragment set:html={a.tail} />
+<SiteFooter />
+</BaseLayout>
