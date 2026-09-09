@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "postbuild": "node -e \"require('fs').copyFileSync('src/_redirects','dist/_redirects')\""
+    "postbuild": "node scripts/postbuild.mjs"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.6.0",
