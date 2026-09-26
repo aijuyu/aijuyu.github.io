@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>計測除外の設定</title>
+<!--
+  運営者の確認アクセスを Cloudflare Web Analytics から外すためのページ（非公開・sitemap外）。
+  開いたブラウザに目印Cookie ikyo_no_rum=1 を付け、Cloudflare の Configuration Rule
+  （http.cookie に "ikyo_no_rum=1" を含むとき Disable RUM）で計測を止める。
+-->
+<style>
+  body { font-family: "Noto Sans JP", sans-serif; background: #f7f8fa; color: #1a3a5c; margin: 0; padding: 48px 16px; }
+  main { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 28px 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  h1 { font-size: 1.2rem; margin: 0 0 16px; }
+  p { line-height: 1.7; margin: 0 0 16px; }
+  #status { font-weight: 700; }
+  button { font: inherit; border: 1px solid #1a3a5c; background: #fff; color: #1a3a5c; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+  button.primary { background: #1a3a5c; color: #fff; }
+</style>
+</head>
+<body>
+<main>
+  <h1>アクセス計測の除外</h1>
+  <p id="status"></p>
+  <p>このブラウザで開いたページは、サイトのアクセス解析に数えられなくなります。端末・ブラウザごとに一度ずつ開いてください。</p>
+  <p><button class="primary" id="on">このブラウザを除外する</button> <button id="off">除外を解除する</button></p>
+  <p><a href="/">トップへ戻る</a></p>
+</main>
+<script>
+  var NAME = "ikyo_no_rum";
+  function isOptedOut() { return document.cookie.split("; ").indexOf(NAME + "=1") !== -1; }
+  function render() {
+    document.getElementById("status").textContent = isOptedOut()
+      ? "このブラウザは計測対象外です。"
+      : "このブラウザは計測対象です。";
+  }
+  function setOptOut(on) {
+    document.cookie = NAME + "=" + (on ? "1; Max-Age=315360000" : "; Max-Age=0") + "; Path=/; SameSite=Lax; Secure";
+    render();
+  }
+  document.getElementById("on").onclick = function () { setOptOut(true); };
+  document.getElementById("off").onclick = function () { setOptOut(false); };
+  // 開いただけで除外する（解除はボタンで）
+  if (!isOptedOut()) setOptOut(true); else render();
+</script>
+</body>
+</html>
