@@ -386,10 +386,17 @@ function suitsFit(c, bind) {
 }
 const hasRank = (cards, r) => cards.some((c) => !c.joker && c.r === r);
 
-function isFoulFinish(cards, revBefore, spade3) {
+// 8切り。階段は一番強い端が8のときだけ（通常は 6・7・8、強さが逆なら 10・9・8）
+function isEightCut(c, d) {
+  if (!CFG.rules.eight || !hasRank(c.cards, R8)) return false;
+  if (c.type !== "seq") return true;
+  return (d > 0 ? c.max : c.min) === R8;
+}
+
+function isFoulFinish(cards, revBefore, spade3, eight) {
   if (!CFG.rules.foul) return false;
   return cards.some((c) => c.joker)
-    || (CFG.rules.eight && hasRank(cards, R8))
+    || eight
     || !!spade3
     || hasRank(cards, revBefore ? R3 : R2);
 }
@@ -476,7 +483,7 @@ function play(pi, cards) {
     G.pendingNumBindAnnounce = false;
     announce("数字縛り", `次は ${rankLabel(c.rank + dir())} だけ出せます`, "bind");
   }
-  const eight = CFG.rules.eight && hasRank(cards, R8);
+  const eight = isEightCut(c, dBefore);
 
   G.history.push({ combo: c, by: pi });
   G.field = { combo: c, by: pi };
@@ -485,7 +492,7 @@ function play(pi, cards) {
   G.passes.clear();
   if (wasLead) P.lockUntil = t + CFG.handicap;
 
-  if (P.hand.length === 0) finishPlayer(pi, isFoulFinish(cards, revBefore, res.spade3));
+  if (P.hand.length === 0) finishPlayer(pi, isFoulFinish(cards, revBefore, res.spade3, eight));
 
   if (G.phase === "play") {
     if (res.spade3) { announce("スペ3返し", `${P.name}が親になります`, "s3"); addLog("スペ3返し"); flush(pi, true); }
@@ -744,14 +751,14 @@ function cpuScore(P, c, cards) {
     const same = hand.filter((x) => !x.joker && x.r === c.rank).length;
     s += (same - cards.filter((x) => !x.joker).length) * 2.2;
   } else if (c.type === "seq") s -= 1;
-  if (CFG.rules.eight && hasRank(cards, R8) && hand.length > cards.length) s -= 3;
+  if (isEightCut(c, d) && hand.length > cards.length) s -= 3;
   if (CFG.rules.revolution && c.type === "group" && c.n >= 4) {
     const avg = hand.reduce((a, x) => a + (x.joker ? 6 : (d > 0 ? x.r : 12 - x.r)), 0) / hand.length;
     s += avg < 6 ? -10 : 12;
   }
   if (cards.length === hand.length) {
     const top = G.field && G.field.combo;
-    if (isFoulFinish(cards, G.revolution, top && top.jokerSingle)) s += 1000;
+    if (isFoulFinish(cards, G.revolution, top && top.jokerSingle, isEightCut(c, d))) s += 1000;
     else s -= 20;
   }
   return { s, pos };
@@ -1016,7 +1023,7 @@ function showRules() {
     </ul>
     <h3>特殊ルール</h3>
     <ul>
-      <li><b>8切り</b>：8を含めて出すと場が流れ、出した人が親になります。</li>
+      <li><b>8切り</b>：8を含めて出すと場が流れ、出した人が親になります。階段は一番強い端が8のときだけです（6・7・8。強さが逆のときは 10・9・8）。</li>
       <li><b>イレブンバック</b>：Jを含めて出すと、場が流れるまで強さが逆になります。</li>
       <li><b>革命</b>：同じ数字4枚以上で強さが逆になります。もう一度起こすと元に戻ります（革命返し）。</li>
       <li><b>マーク縛り</b>：同じマークが続くと、流れるまでそのマークだけになります。複数枚はマークの組み合わせが全部一致したときに成立します。</li>
@@ -1028,7 +1035,7 @@ function showRules() {
     <ul>
       <li><b>カード交換</b>：2ラウンド目から、大貧民は一番強い2枚を大富豪へ、貧民は1枚を富豪へ渡し、受け取った側は好きなカードを同じ枚数返します。大貧民が最初の親です。</li>
       <li><b>都落ち</b>：前回の大富豪が1位で上がれなかったら、その時点で大貧民になります。</li>
-      <li><b>反則上がり</b>：最後の1手にジョーカー・8・2（革命中は3）を含む場合や、スペ3返しで上がった場合は最下位です。</li>
+      <li><b>反則上がり</b>：最後の1手にジョーカー・2（革命中は3）を含む場合や8切りの場合や、スペ3返しで上がった場合は最下位です。</li>
     </ul>
     <div class="end"><button class="primary" type="button" data-act="close">閉じる</button></div>`);
 }
