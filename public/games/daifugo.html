@@ -104,7 +104,7 @@ header.top h1 span { color: var(--gold); }
 .prev { display: flex; gap: 10px; opacity: .45; flex-wrap: wrap; justify-content: center; }
 .prev .group { display: flex; transform: scale(.62); transform-origin: center; margin: -14px -10px; }
 .topplay { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
-.topplay .card { animation: drop .18s ease-out; }
+.topplay .card.fresh { animation: drop .18s ease-out; }
 .by { font-size: 12px; color: var(--muted); min-height: 18px; }
 .empty { color: var(--muted); font-size: 13px; text-align: center; }
 .gauge { display: flex; align-items: center; gap: 10px; }
@@ -199,7 +199,7 @@ table.res th { color: var(--muted); font-weight: 400; font-size: 12px; }
 @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes drop { from { transform: translateY(-14px); opacity: .3; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .ann, .topplay .card { animation: none; }
+  .ann, .topplay .card.fresh { animation: none; }
   .hand .card { transition: none; }
 }
 @media (max-width: 520px) {
@@ -393,23 +393,25 @@ function isEightCut(c, d) {
   return (d > 0 ? c.max : c.min) === R8;
 }
 
+// 反則上がりなら理由を返す。反則でなければ ""
 function isFoulFinish(cards, revBefore, spade3, eight) {
-  if (!CFG.rules.foul) return false;
-  return cards.some((c) => c.joker)
-    || eight
-    || !!spade3
-    || hasRank(cards, revBefore ? R3 : R2);
+  if (!CFG.rules.foul) return "";
+  if (cards.some((c) => c.joker)) return "ジョーカー";
+  if (spade3) return "スペ3返し";
+  if (eight) return "8切り";
+  if (hasRank(cards, revBefore ? R3 : R2)) return revBefore ? "革命中の3" : "2";
+  return "";
 }
 
 // ---------- 出せるかどうか ----------
-function check(pi, cards) {
+function check(pi, cards, ignoreLock) {
   const fail = (reason) => ({ ok: false, reason });
   if (G.phase !== "play") return fail("今はカードを出せません");
   if (G.paused) return fail("一時停止中です");
   const P = G.players[pi];
   if (P.out) return fail("もう上がっています");
   const t = now();
-  if (P.lockUntil > t) return fail(`親ハンデ中です。あと${(P.lockUntil - t).toFixed(1)}秒`);
+  if (!ignoreLock && P.lockUntil > t) return fail(`親ハンデ中です。あと${(P.lockUntil - t).toFixed(1)}秒`);
   if (!cards.length) return fail("カードを選んでください");
   const c = analyze(cards);
   if (!c) return fail("その組み合わせは出せません（同じ数字の組か、同じマーク3枚以上の連番）");
@@ -497,6 +499,8 @@ function play(pi, cards) {
   if (G.phase === "play") {
     if (res.spade3) { announce("スペ3返し", `${P.name}が親になります`, "s3"); addLog("スペ3返し"); flush(pi, true); }
     else if (eight) { announce("8切り", `${G.players[nextActive(pi)].name}が親になります`, "eight"); addLog("8切り"); flush(pi, true); }
+    // 誰も（出した本人も）次を出せないなら、少し見せてから自動で流す
+    G.autoFlushAt = (G.field && !canAnyonePlay()) ? t + 1.2 : null;
   }
   rescheduleCpus(pi);
   renderAll();
@@ -511,6 +515,7 @@ function flush(byPi, quiet) {
   G.elevenBack = false;
   G.players.forEach((p) => { p.lockUntil = 0; });
   G.passes.clear();
+  G.autoFlushAt = null;
   G.leader = nextActive(byPi);
   G.lastPlayTime = null;
   if (G.leader < 0) return;
@@ -543,16 +548,19 @@ function nextActive(i) {
   }
   return -1;
 }
+function canAnyonePlay() {
+  return actives().some((pi) => genCombos(G.players[pi].hand).some((cs) => check(pi, cs, true).ok));
+}
 const actives = () => G.players.map((p, i) => i).filter((i) => !G.players[i].out);
 
 function finishPlayer(pi, foul) {
   const P = G.players[pi];
   P.out = true;
   if (foul) {
-    P.foul = true;
+    P.foul = foul;
     G.places[G.bottomSlot--] = pi;
-    announce("反則上がり", `${P.name}は最下位です`, "foul");
-    addLog(`${P.name} 反則上がり`);
+    announce("反則上がり", `${P.name}は${foul}で上がったので最下位です`, "foul");
+    addLog(`${P.name} 反則上がり（${foul}で上がった）`);
   } else {
     const place = G.topSlot;
     G.places[G.topSlot++] = pi;
@@ -756,6 +764,12 @@ function cpuScore(P, c, cards) {
     const avg = hand.reduce((a, x) => a + (x.joker ? 6 : (d > 0 ? x.r : 12 - x.r)), 0) / hand.length;
     s += avg < 6 ? -10 : 12;
   }
+  if (CFG.rules.foul) {
+    const danger = (x) => x.joker || (CFG.rules.eight && x.r === R8) || x.r === (G.revolution ? R3 : R2);
+    const rest = hand.filter((x) => !cards.includes(x));
+    if (rest.length && rest.length <= 3 && rest.every(danger)) s += 8;
+    if (hand.length <= 5 && cards.some(danger) && rest.length) s -= 4;
+  }
   if (cards.length === hand.length) {
     const top = G.field && G.field.combo;
     if (isFoulFinish(cards, G.revolution, top && top.jokerSingle, isEightCut(c, d))) s += 1000;
@@ -796,6 +810,13 @@ function cpuThink(pi, t) {
 function tick() {
   if (G.phase === "play" && !G.paused) {
     const t = now();
+    if (G.field && G.autoFlushAt && t >= G.autoFlushAt) {
+      addLog("出せる人なし");
+      flush(G.lastPlayer, true);
+      announce("出せる人なし", `親: ${G.players[G.leader].name}`, "flow");
+      rescheduleCpus(-1);
+      renderAll();
+    }
     if (G.field && timerOn() && t - G.lastPlayTime >= CFG.flush) {
       flush(G.lastPlayer, false);
       rescheduleCpus(-1);
@@ -818,6 +839,7 @@ function togglePause() {
   else {
     const d = now() - G.pausedAt;
     if (G.lastPlayTime != null) G.lastPlayTime += d;
+    if (G.autoFlushAt) G.autoFlushAt += d;
     G.players.forEach((p) => { if (p.lockUntil) p.lockUntil += d; p.next += d; });
     G.paused = false;
   }
@@ -903,6 +925,7 @@ function renderBadges() {
   $("badges").innerHTML = parts.join("");
 }
 
+let lastFieldKey = "";
 function renderField() {
   const prev = $("prevPlays"), top = $("topPlay"), by = $("topBy");
   prev.innerHTML = ""; top.innerHTML = "";
@@ -918,16 +941,25 @@ function renderField() {
     h.combo.cards.forEach((c) => g.appendChild(cardEl(c)));
     prev.appendChild(g);
   });
-  G.field.combo.cards.forEach((c) => top.appendChild(cardEl(c)));
+  const fkey = G.history.length + ":" + G.field.combo.cards.map((c) => c.id).join(",");
+  const fresh = fkey !== lastFieldKey;
+  lastFieldKey = fkey;
+  G.field.combo.cards.forEach((c) => { const e = cardEl(c); if (fresh) e.classList.add("fresh"); top.appendChild(e); });
   by.textContent = `${G.players[G.field.by].name}（${describe(G.field.combo)}）`;
 }
 
+let lastHandKey = "";
 function renderHand() {
   const el = $("hand");
-  el.innerHTML = "";
   const me = G.players[0];
   const ids = new Set(me.hand.map((c) => c.id));
   for (const id of [...G.selected]) if (!ids.has(id)) G.selected.delete(id);
+  const btn = $("btnPlay");
+  btn.innerHTML = (G.phase === "exchange" && G.exch && G.exch.needs) ? "渡す<kbd>Space</kbd>" : "出す<kbd>Space</kbd>";
+  const hkey = G.phase + "|" + me.hand.map((c) => c.id).sort((a, b) => a - b).join(",") + "|" + [...G.selected].sort((a, b) => a - b).join(",");
+  if (hkey === lastHandKey) return;
+  lastHandKey = hkey;
+  el.innerHTML = "";
   sortedCards(me.hand).forEach((c) => {
     const b = cardEl(c, "button");
     b.type = "button";
@@ -935,12 +967,11 @@ function renderHand() {
     b.addEventListener("click", () => {
       if (G.selected.has(c.id)) G.selected.delete(c.id); else G.selected.add(c.id);
       b.classList.toggle("sel");
+      lastHandKey = G.phase + "|" + G.players[0].hand.map((x) => x.id).sort((a, b) => a - b).join(",") + "|" + [...G.selected].sort((a, b) => a - b).join(",");
     });
     el.appendChild(b);
   });
   if (!me.hand.length && G.phase === "play") el.innerHTML = `<div class="empty">上がりました。残りの対戦を見ています</div>`;
-  const btn = $("btnPlay");
-  btn.innerHTML = (G.phase === "exchange" && G.exch && G.exch.needs) ? "渡す<kbd>Space</kbd>" : "出す<kbd>Space</kbd>";
 }
 
 function statusOf(i, t) {
@@ -1030,6 +1061,7 @@ function showRules() {
       <li><b>数字縛り</b>：強さが1つずつ続くと、流れるまで次の1つ上だけになります。イレブンバックや革命で強さが逆になると、縛りは逆の向きに続きます（10→J の次は 10）。</li>
       <li>縛りは誰が出したカードでも成立します。ジョーカーはどのマーク・数字の代わりにもなります。8も縛りに従います。</li>
       <li><b>スペ3返し</b>：ジョーカー1枚には♠3だけ出せます。出すと場が流れます。</li>
+      <li><b>自動で流れる</b>：誰も（出した本人も）次に出せるカードを持っていないときは、すぐに場が流れます。</li>
     </ul>
     <h3>一般ルール</h3>
     <ul>
@@ -1062,7 +1094,7 @@ function showSettings() {
 function showResult() {
   const rows = G.places.map((pi, place) => {
     const p = G.players[pi];
-    return `<tr><td>${place + 1}位</td><td>${esc(p.name)}${p.foul ? "（反則）" : ""}</td><td>${TITLES[place]}</td><td>${p.score}点</td></tr>`;
+    return `<tr><td>${place + 1}位</td><td>${esc(p.name)}${p.foul ? `（反則上がり：${esc(p.foul)}）` : ""}</td><td>${TITLES[place]}</td><td>${p.score}点</td></tr>`;
   }).join("");
   openModal(`
     <h2>第${G.round}ラウンドの結果</h2>
