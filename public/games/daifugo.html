@@ -248,6 +248,7 @@ table.res th { color: var(--muted); font-weight: 400; font-size: 12px; }
     <div id="hand" class="hand"></div>
     <div class="actions">
       <button id="btnPlay" class="primary" type="button">出す<kbd>Space</kbd></button>
+      <button id="btnPass" type="button">パス<kbd>X</kbd></button>
       <button id="btnClear" type="button">選択解除<kbd>Esc</kbd></button>
     </div>
   </section>
@@ -269,16 +270,19 @@ const R3 = 0, R8 = 5, RJ = 8, R2 = 12;
 const TITLES = ["大富豪", "富豪", "貧民", "大貧民"];
 const POINTS = [3, 2, 1, 0];
 const SPEEDS = {
-  slow:   { label: "ゆっくり", react: [1.3, 2.8], recheck: [0.7, 1.4] },
-  normal: { label: "ふつう",   react: [0.7, 1.8], recheck: [0.4, 0.9] },
-  fast:   { label: "速い",     react: [0.35, 1.0], recheck: [0.25, 0.6] },
+  slower: { label: "とてもゆっくり", react: [3.0, 5.5], recheck: [1.5, 2.5] },
+  slow:   { label: "ゆっくり", react: [2.2, 4.0], recheck: [1.1, 1.9] },
+  normal: { label: "ふつう",   react: [1.5, 3.0], recheck: [0.8, 1.4] },
+  fast:   { label: "速い",     react: [0.7, 1.6], recheck: [0.4, 0.8] },
 };
 const RULE_NAMES = {
   eight: "8切り", eleven: "イレブンバック", revolution: "革命", suitBind: "マーク縛り", numBind: "数字縛り",
   spade3: "スペ3返し", miyako: "都落ち", foul: "反則上がり", exchange: "カード交換",
 };
+const timerOn = () => CFG.flush > 0;
+const flushText = () => timerOn() ? `${CFG.flush}秒` : "なし";
 const DEFAULTS = {
-  handicap: 2, flush: 5, speed: "normal",
+  handicap: 2, flush: 15, speed: "normal",
   rules: { eight: true, eleven: true, revolution: true, suitBind: true, numBind: true, spade3: true, miyako: true, foul: true, exchange: true },
 };
 
@@ -286,7 +290,7 @@ const CFG = loadCfg();
 function loadCfg() {
   const c = JSON.parse(JSON.stringify(DEFAULTS));
   try {
-    const s = JSON.parse(localStorage.getItem("rt-daifugo-cfg") || "null");
+    const s = JSON.parse(localStorage.getItem("rt-daifugo-cfg2") || "null");
     if (s) {
       if (typeof s.handicap === "number") c.handicap = s.handicap;
       if (typeof s.flush === "number") c.flush = s.flush;
@@ -296,7 +300,7 @@ function loadCfg() {
   } catch (e) {}
   return c;
 }
-function saveCfg() { try { localStorage.setItem("rt-daifugo-cfg", JSON.stringify(CFG)); } catch (e) {} }
+function saveCfg() { try { localStorage.setItem("rt-daifugo-cfg2", JSON.stringify(CFG)); } catch (e) {} }
 
 // ---------- 小道具 ----------
 const $ = (id) => document.getElementById(id);
@@ -332,11 +336,12 @@ const G = {
   pausedAt: 0,
   exch: null,
   selected: new Set(),
+  passes: new Set(),     // この場でパスした人
 };
 
 function makePlayers() {
   const names = ["あなた", "CPU ひがし", "CPU きた", "CPU にし"];
-  G.players = names.map((name, i) => ({ name, isHuman: i === 0, hand: [], out: false, foul: false, lockUntil: 0, score: 0, next: 0 }));
+  G.players = names.map((name, i) => ({ name, isHuman: i === 0, hand: [], out: false, foul: false, lockUntil: 0, score: 0, next: 0, misses: 0 }));
 }
 
 // 強さの向き。革命とイレブンバックが両方かかると元に戻る。
@@ -477,6 +482,7 @@ function play(pi, cards) {
   G.field = { combo: c, by: pi };
   G.lastPlayer = pi;
   G.lastPlayTime = t;
+  G.passes.clear();
   if (wasLead) P.lockUntil = t + CFG.handicap;
 
   if (P.hand.length === 0) finishPlayer(pi, isFoulFinish(cards, revBefore, res.spade3));
@@ -497,11 +503,30 @@ function flush(byPi, quiet) {
   G.numBind = false;
   G.elevenBack = false;
   G.players.forEach((p) => { p.lockUntil = 0; });
+  G.passes.clear();
   G.leader = nextActive(byPi);
   G.lastPlayTime = null;
   if (G.leader < 0) return;
   addLog(`場が流れました。親: ${G.players[G.leader].name}`);
   if (!quiet) announce("流れました", `親: ${G.players[G.leader].name}`, "flow");
+}
+
+function pass(pi) {
+  const P = G.players[pi];
+  if (G.phase !== "play") return { ok: false, reason: "今はパスできません" };
+  if (G.paused) return { ok: false, reason: "一時停止中です" };
+  if (P.out) return { ok: false, reason: "もう上がっています" };
+  if (!G.field) return { ok: false, reason: pi === G.leader ? "親なので、カードを出してください" : "場が空なのでパスはいりません" };
+  if (G.passes.has(pi)) return { ok: false, reason: "パス済みです" };
+  G.passes.add(pi);
+  addLog(`${P.name}: パス`);
+  if (actives().every((i) => G.passes.has(i))) {
+    announce("全員パス", "", "flow");
+    flush(G.lastPlayer, true);
+    rescheduleCpus(-1);
+  }
+  renderAll();
+  return { ok: true };
 }
 
 function nextActive(i) {
@@ -556,8 +581,8 @@ function newMatch() {
   showBanner(`
     <h2>リアルタイム大富豪</h2>
     <p>順番はありません。場より強いカードなら、いつでも何枚でも出せます。自分のカードの上にも重ねられます。</p>
-    <p>親は1枚目を出してから${CFG.handicap}秒間出せません。${CFG.flush}秒間誰も出さなければ場が流れ、最後に出した人が親になります。</p>
-    <p>カードを選んで「出す」（Spaceキー）。</p>
+    <p>親は1枚目を出してから${CFG.handicap}秒間出せません。全員が「パス」を押すと場が流れ、最後に出した人が親になります。${timerOn() ? `${CFG.flush}秒間誰も出さなくても流れます。` : ""}</p>
+    <p>カードを選んで「出す」（Spaceキー）。もう出さないときは「パス」（Xキー）。</p>
     <button class="primary" type="button" data-act="start">はじめる</button>`);
   renderAll();
 }
@@ -577,6 +602,7 @@ function dealRound() {
   G.places = [null, null, null, null]; G.topSlot = 0; G.bottomSlot = 3; G.miyakoChecked = false;
   G.lastPlayer = null; G.lastPlayTime = null;
   G.selected.clear();
+  G.passes.clear();
 }
 
 function startRound() {
@@ -671,7 +697,8 @@ function rescheduleCpus(byPi) {
   const sp = SPEEDS[CFG.speed];
   G.players.forEach((p, i) => {
     if (p.isHuman || p.out) return;
-    p.next = t + rand(sp.react[0], sp.react[1]) * (i === byPi ? 0.7 : 1);
+    p.next = t + rand(sp.react[0], sp.react[1]) * (i === byPi ? 0.8 : 1);
+    p.misses = 0;
   });
 }
 
@@ -741,28 +768,28 @@ function cpuThink(pi, t) {
     const sc = cpuScore(P, r.combo, cards);
     if (!best || sc.s < best.s) best = { cards, combo: r.combo, ...sc };
   }
-  // 反則上がりになる手しかないときは、親なら仕方なく出す。親でなければ見送る
-  if (!best || (best.s >= 1000 && G.field)) return;
+  // 反則上がりになる手しかないときは、親なら仕方なく出す。親でなければパス
+  if (!best || (best.s >= 1000 && G.field)) { if (G.field) pass(pi); return; }
   let p;
   if (!G.field) p = 1;
   else {
     const strong = best.combo.jokerSingle || best.pos >= 10;
-    const remain = CFG.flush - (t - G.lastPlayTime);
-    if (G.lastPlayer === pi) p = strong ? 0.04 : 0.55;
+    if (G.lastPlayer === pi) p = strong ? 0.04 : 0.45;
     else {
-      p = strong ? 0.22 : 0.65;
-      if (remain < 1.6) p = Math.max(p, 0.8);
+      p = strong ? 0.2 : 0.55;
+      if (timerOn() && CFG.flush - (t - G.lastPlayTime) < 2) p = Math.max(p, 0.7);
     }
     if (P.hand.length <= 3) p = Math.min(1, p + 0.3);
   }
-  if (Math.random() < p) play(pi, best.cards);
+  if (Math.random() < p) { play(pi, best.cards); return; }
+  if (G.field && ++P.misses >= 2) pass(pi);
 }
 
 // ---------- ループ ----------
 function tick() {
   if (G.phase === "play" && !G.paused) {
     const t = now();
-    if (G.field && t - G.lastPlayTime >= CFG.flush) {
+    if (G.field && timerOn() && t - G.lastPlayTime >= CFG.flush) {
       flush(G.lastPlayer, false);
       rescheduleCpus(-1);
       renderAll();
@@ -770,7 +797,7 @@ function tick() {
     const sp = SPEEDS[CFG.speed];
     for (let i = 1; i < 4 && G.phase === "play"; i++) {
       const p = G.players[i];
-      if (p.out || t < p.next) continue;
+      if (p.out || t < p.next || G.passes.has(i)) continue;
       p.next = t + rand(sp.recheck[0], sp.recheck[1]);
       cpuThink(i, t);
     }
@@ -844,8 +871,7 @@ function cardEl(c, tag) {
 
 function sortKey(c) {
   if (c.joker) return 1000;
-  const r = dir() > 0 ? c.r : 12 - c.r;
-  return r * 4 + SUITS.indexOf(c.suit);
+  return c.r * 4 + SUITS.indexOf(c.suit);
 }
 const sortedCards = (cs) => [...cs].sort((a, b) => sortKey(a) - sortKey(b));
 
@@ -920,6 +946,7 @@ function statusOf(i, t) {
   if (G.phase !== "play") return { txt: "", cls: "" };
   if (p.lockUntil > t) return { txt: `親ハンデ ${(p.lockUntil - t).toFixed(1)}秒`, cls: "lock" };
   if (!G.field && G.leader === i) return { txt: "親", cls: "lead" };
+  if (G.field && G.passes.has(i)) return { txt: "パス", cls: "" };
   if (G.field && G.lastPlayer === i) return { txt: "最後に出した", cls: "" };
   return { txt: "", cls: "" };
 }
@@ -948,10 +975,18 @@ function renderTimers() {
   // 流れるまでのゲージ
   const fill = $("gaugeFill"), txt = $("gaugeText");
   if (G.phase === "play" && G.field) {
-    const remain = Math.max(0, CFG.flush - (t - G.lastPlayTime));
-    fill.style.width = (remain / CFG.flush * 100) + "%";
-    fill.classList.toggle("low", remain < 1.5);
-    txt.textContent = G.paused ? "一時停止中" : `流れるまで ${remain.toFixed(1)}秒`;
+    const act = actives().length;
+    const passTxt = `パス ${G.passes.size}/${act}`;
+    if (timerOn()) {
+      const remain = Math.max(0, CFG.flush - (t - G.lastPlayTime));
+      fill.style.width = (remain / CFG.flush * 100) + "%";
+      fill.classList.toggle("low", remain < 3);
+      txt.textContent = G.paused ? "一時停止中" : `${passTxt}・あと${remain.toFixed(1)}秒`;
+    } else {
+      fill.style.width = (G.passes.size / act * 100) + "%";
+      fill.classList.remove("low");
+      txt.textContent = G.paused ? "一時停止中" : passTxt;
+    }
   } else {
     fill.style.width = "0%";
     txt.textContent = G.paused ? "一時停止中" : (G.phase === "play" ? "場は空です" : "");
@@ -974,7 +1009,8 @@ function showRules() {
     <ul>
       <li>順番はありません。場より強いカードなら、誰でもいつでも出せます。自分のカードの上にも重ねられます（連打あり）。</li>
       <li>場の親は1枚目を出してから<b>${CFG.handicap}秒間</b>出せません。8切りやスペ3返しで親になった場合も同じです。</li>
-      <li><b>${CFG.flush}秒間</b>誰も出さなければ場が流れ、最後に出した人が親になります。上がっている場合は次の席の人が親です。</li>
+      <li>残っている<b>全員が「パス」</b>を押すと場が流れ、最後に出した人が親になります。上がっている場合は次の席の人が親です。誰かがカードを出すとパスは取り消され、パスした人もまた出せます。</li>
+      <li>時間切れ：${timerOn() ? `<b>${CFG.flush}秒間</b>誰も出さなければ、パスがそろわなくても流れます。` : "なし（設定で変えられます）"}</li>
       <li>出せる形は、1枚、同じ数字の組（2〜5枚）、同じマーク3枚以上の連番（階段）です。場と同じ形・同じ枚数で、より強いものだけ出せます。</li>
       <li>強さは 3 &lt; 4 &lt; … &lt; K &lt; A &lt; 2。ジョーカー1枚は一番強く、組や階段では何の代わりにもなります。</li>
     </ul>
@@ -1003,7 +1039,7 @@ function showSettings() {
   openModal(`
     <h2>設定</h2>
     <div class="row"><label for="cfgHandicap">親ハンデ</label><input id="cfgHandicap" type="range" min="0" max="5" step="0.5" value="${CFG.handicap}"><span class="val" id="vHandicap">${CFG.handicap}秒</span></div>
-    <div class="row"><label for="cfgFlush">流れるまで</label><input id="cfgFlush" type="range" min="2" max="10" step="0.5" value="${CFG.flush}"><span class="val" id="vFlush">${CFG.flush}秒</span></div>
+    <div class="row"><label for="cfgFlush">時間切れ</label><input id="cfgFlush" type="range" min="0" max="30" step="1" value="${CFG.flush}"><span class="val" id="vFlush">${flushText()}</span></div>
     <div class="row"><label for="cfgSpeed">CPUの速さ</label>
       <select id="cfgSpeed">${Object.entries(SPEEDS).map(([k, v]) => `<option value="${k}"${CFG.speed === k ? " selected" : ""}>${v.label}</option>`).join("")}</select></div>
     <h3>ルール</h3>
@@ -1011,7 +1047,7 @@ function showSettings() {
     <p style="color:var(--muted);margin:0;font-size:12px">変更はすぐに反映されます。</p>
     <div class="end"><button type="button" data-act="reset">最初からやり直す</button><button class="primary" type="button" data-act="close">閉じる</button></div>`);
   $("cfgHandicap").addEventListener("input", (e) => { CFG.handicap = +e.target.value; $("vHandicap").textContent = CFG.handicap + "秒"; saveCfg(); });
-  $("cfgFlush").addEventListener("input", (e) => { CFG.flush = +e.target.value; $("vFlush").textContent = CFG.flush + "秒"; saveCfg(); });
+  $("cfgFlush").addEventListener("input", (e) => { CFG.flush = +e.target.value; $("vFlush").textContent = flushText(); saveCfg(); });
   $("cfgSpeed").addEventListener("change", (e) => { CFG.speed = e.target.value; saveCfg(); });
   $("sheet").querySelectorAll("[data-rule]").forEach((el) => el.addEventListener("change", () => { CFG.rules[el.dataset.rule] = el.checked; saveCfg(); renderAll(); }));
 }
@@ -1049,6 +1085,11 @@ document.addEventListener("click", (e) => {
   else if (act === "reset") { closeModal(); G.paused = false; $("btnPause").textContent = "一時停止"; newMatch(); }
 });
 $("btnPlay").addEventListener("click", humanPlay);
+function humanPass() {
+  const r = pass(0);
+  if (!r.ok) flashMsg(r.reason);
+}
+$("btnPass").addEventListener("click", humanPass);
 $("btnClear").addEventListener("click", () => { G.selected.clear(); renderHand(); });
 $("btnRules").addEventListener("click", showRules);
 $("btnSettings").addEventListener("click", showSettings);
@@ -1062,6 +1103,7 @@ document.addEventListener("keydown", (e) => {
     if (G.phase === "ready") beginPlay();
     else humanPlay();
   } else if (e.key === "Escape") { G.selected.clear(); renderHand(); }
+  else if (e.key === "x" || e.key === "X") humanPass();
   else if (e.key === "p" || e.key === "P") togglePause();
 });
 
