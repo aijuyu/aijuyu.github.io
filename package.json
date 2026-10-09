@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/clean.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "postbuild": "node scripts/postbuild.mjs"
+    "postbuild": "node scripts/postbuild.mjs",
+    "deploy": "powershell -ExecutionPolicy Bypass -NoProfile -File scripts/deploy.ps1"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.6.0",

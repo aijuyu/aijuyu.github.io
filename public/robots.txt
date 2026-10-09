@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# /shorts/ はXへネイティブ動画を載せるためにBufferが取りに来るだけの置き場。
+# ページが無い裸のmp4なので、クロールされても検索結果には使えない。
+Disallow: /shorts/
+
 Sitemap: https://ikyokunosoto.com/sitemap.xml
