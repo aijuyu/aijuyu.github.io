@@ -247,6 +247,15 @@ nav { justify-content: flex-start; gap: 22px; }
 .short-embed figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
 .short-embed figcaption a { color: var(--accent); }
 
+/* ---------- 本編動画の埋め込み（16:9） ---------- */
+.video-embed { margin: 32px 0; text-align: center; }
+.video-embed iframe {
+  display: block; width: 100%; aspect-ratio: 16 / 9; border: 0;
+  border-radius: 14px; background: #000;
+}
+.video-embed figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+.video-embed figcaption a { color: var(--accent); }
+
 /* ---------- 関連記事 ---------- */
 .related {
   background: #f7f4ee; border-radius: 14px;
