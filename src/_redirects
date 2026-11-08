@@ -9,3 +9,7 @@
 /          /index.html           200
 /articles/ /articles/index.html  200
 /episodes/ /episodes/index.html  200
+
+# 末尾スラッシュなしは何も無いので404になる。外から貼られたリンクを拾うため301で寄せる。
+/articles  /articles/  301
+/episodes  /episodes/  301
