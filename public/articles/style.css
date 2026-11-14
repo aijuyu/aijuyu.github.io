@@ -412,3 +412,5 @@ footer a { color: rgba(255,255,255,0.65); text-decoration: none; }
   border: 1px solid var(--border); border-radius: var(--radius);
 }
 .site-note { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+.source-note { margin: 36px 0 8px; padding: 14px 16px; background: #f6f4ef; border-radius: 8px; }
+.source-note p { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin: 0; }
