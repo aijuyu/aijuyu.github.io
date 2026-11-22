@@ -306,6 +306,7 @@ nav { justify-content: flex-start; gap: 22px; }
 .side-btn:hover { transform: translateY(-1px); opacity: .9; }
 .side-btn.yt { background: var(--navy); color: #fff; }
 .side-btn.note { background: #fff; color: var(--urgent); border: 2px solid var(--urgent); }
+.side-btn.short { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
 
 /* ランキング */
 .rank-list { list-style: none; counter-reset: rank; }
